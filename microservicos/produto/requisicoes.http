@@ -1,0 +1,14 @@
+### Listar produtos
+GET http://localhost:3001/produtos
+
+### Criar pedido
+POST http://localhost:3001/produtos
+Content-Type: application/json
+
+{
+  "nome": "teclado",
+  "preco": 200
+}
+
+### Buscar pedido por ID
+GET http://localhost:3001/produtos/1

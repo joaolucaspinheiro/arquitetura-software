@@ -6,7 +6,8 @@ const app = express();
 app.use(express.json());
 
 const pedidos = [];
-
+const PRODUTOS_URL =
+    process.env.PRODUTOS_URL || "http://localhost:3001";
 app.get("/pedidos", (req, res) => {
     res.json(pedidos);
 });
@@ -36,7 +37,7 @@ app.post("/pedidos", async (req, res) => {
 
     try {
         const resposta = await axios.get(
-            `http://localhost:3001/produtos/${produtoId}`,
+            `${PRODUTOS_URL}/produtos/${produtoId}`,
             {
                 timeout: 3000
             }
