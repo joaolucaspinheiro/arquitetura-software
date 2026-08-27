@@ -32,7 +32,7 @@ app.post("/pedidos", async (req, res) => {
         return res.status(400).json({
             erro: "produtoId e quantidade válida são obrigatórios"
         });
-    } a
+    } 
 
     try {
         const resposta = await axios.get(
