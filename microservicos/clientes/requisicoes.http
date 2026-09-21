@@ -1,0 +1,37 @@
+### Listar clientes
+GET http://localhost:3003/clientes
+
+### Buscar cliente por ID
+GET http://localhost:3003/clientes/1
+
+### Buscar cliente que não existe
+GET http://localhost:3003/clientes/999
+
+### Criar cliente
+POST http://localhost:3003/clientes
+Content-Type: application/json
+
+{
+  "nome": "João",
+  "sobrenome": "Silva",
+  "telefone": "46999999999",
+  "email": "joao@email.com"
+}
+
+### Criar cliente sem os campos obrigatórios
+POST http://localhost:3003/clientes
+Content-Type: application/json
+
+{
+  "nome": "João"
+}
+
+### Criar cliente com email repetido
+POST http://localhost:3003/clientes
+Content-Type: application/json
+
+{
+  "nome": "João",
+  "sobrenome": "Silva",
+  "email": "joao@email.com"
+}
