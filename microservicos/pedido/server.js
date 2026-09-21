@@ -8,6 +8,8 @@ app.use(express.json());
 const pedidos = [];
 const PRODUTOS_URL =
     process.env.PRODUTOS_URL || "http://localhost:3001";
+const CLIENTES_URL =
+    process.env.CLIENTES_URL || "http://localhost:3003";
 app.get("/pedidos", (req, res) => {
     res.json(pedidos);
 });
@@ -27,13 +29,38 @@ app.get("/pedidos/:id", (req, res) => {
 });
 
 app.post("/pedidos", async (req, res) => {
-    const { produtoId, quantidade } = req.body;
+    const { cliente_id, produtoId, quantidade } = req.body;
+
+    if (!cliente_id) {
+        return res.status(400).json({
+            erro: "cliente_id é obrigatório"
+        });
+    }
 
     if (!produtoId || !quantidade || quantidade <= 0) {
         return res.status(400).json({
             erro: "produtoId e quantidade válida são obrigatórios"
         });
     } 
+
+    try {
+        await axios.get(
+            `${CLIENTES_URL}/clientes/${cliente_id}`,
+            {
+                timeout: 3000
+            }
+        );
+    } catch (erro) {
+        if (erro.response?.status === 404) {
+            return res.status(400).json({
+                erro: "Cliente não encontrado"
+            });
+        }
+
+        return res.status(503).json({
+            erro: "Serviço de Clientes indisponível"
+        });
+    }
 
     try {
         const resposta = await axios.get(
@@ -47,6 +74,7 @@ app.post("/pedidos", async (req, res) => {
 
         const pedido = {
             id: pedidos.length + 1,
+            cliente_id,
             produto,
             quantidade,
             total: produto.preco * quantidade

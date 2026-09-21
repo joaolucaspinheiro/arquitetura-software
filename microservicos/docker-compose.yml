@@ -15,8 +15,10 @@ services:
       - "3002:3002"
     environment:
       PRODUTOS_URL: http://produto:3001
+      CLIENTES_URL: http://clientes:3003
     depends_on:
       - produto
+      - clientes
 
   clientes:
     build: ./clientes

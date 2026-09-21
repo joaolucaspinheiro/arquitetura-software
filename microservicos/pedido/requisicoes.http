@@ -6,6 +6,17 @@ POST http://localhost:3002/pedidos
 Content-Type: application/json
 
 {
+  "cliente_id": 1,
+  "produtoId": 1,
+  "quantidade": 2
+}
+
+### Criar pedido com cliente que não existe
+POST http://localhost:3002/pedidos
+Content-Type: application/json
+
+{
+  "cliente_id": 999,
   "produtoId": 1,
   "quantidade": 2
 }
