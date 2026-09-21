@@ -5,6 +5,20 @@ const db = require("./db");
 app.use(express.json());
 
 
+app.get("/clientes", async (req, res) => {
+    try {
+        const resultado = await db.query(
+            "SELECT * FROM clientes ORDER BY id"
+        );
+
+        res.json(resultado.rows);
+    } catch (erro) {
+        res.status(500).json({
+            erro: "Erro ao buscar clientes"
+        });
+    }
+});
+
 async function criarTabela() {
     await db.query(`
     CREATE TABLE IF NOT EXISTS clientes (
