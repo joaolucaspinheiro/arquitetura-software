@@ -1,0 +1,26 @@
+### Listar entregas
+GET http://localhost:3004/entregas
+
+### Criar entrega (pedido 1 precisa existir)
+POST http://localhost:3004/entregas
+Content-Type: application/json
+
+{
+  "pedido_id": "1",
+  "endereco": "Rua das Flores, 100"
+}
+
+### Criar entrega com pedido que não existe
+POST http://localhost:3004/entregas
+Content-Type: application/json
+
+{
+  "pedido_id": "999",
+  "endereco": "Rua das Flores, 100"
+}
+
+### Buscar entrega por ID (troque pelo _id retornado)
+GET http://localhost:3004/entregas/COLE_O_ID_AQUI
+
+### Buscar entrega por pedido
+GET http://localhost:3004/entregas/pedido/1
